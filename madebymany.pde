@@ -30,7 +30,7 @@ void setup() {
   gameboard= new Gameboard();
 
   hider = new Hider();
-  //hider.display();//COMMENT THIS OUT TO SEE THE MASTER'S COMBINATION
+  hider.display();//COMMENT THIS OUT TO SEE THE MASTER'S COMBINATION
   
 
 }
