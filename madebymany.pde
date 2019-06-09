@@ -17,6 +17,9 @@ color[] colorGuess=new color[4];
 
 color colorPicker;
 
+boolean gameLost=false;
+boolean gameWon=false;
+
 Gameboard gameboard;
 Hider hider;
 
@@ -27,13 +30,22 @@ void setup() {
   gameboard= new Gameboard();
 
   hider = new Hider();
-  hider.display();//COMMENT THIS OUT TO SEE THE MASTER'S COMBINATION
+  //hider.display();//COMMENT THIS OUT TO SEE THE MASTER'S COMBINATION
   
 
 }
 
 
 void draw() {
+
+  if(gameLost | gameWon){
+    gameLost=false;
+    gameWon=false;
+    setupp();
+  
+  }
+  
+  
 }
 
 
@@ -138,15 +150,7 @@ void mouseClicked() {
      if(row<n){
        
        gameover();
-       
-      //delay(2000);
-      col=0;
-      colIndex=0;
-      row=N-2*n;
-      counter=0;
-      countPosition=0;
-      colorCounter=0;
-    setup();
+     
     }
     
   }
@@ -280,10 +284,41 @@ if(!gameboard.masterTile1.hasMatchedPosition){
     if(colorGuess[i]==masterTile1.colorr){
     colorCounter++;
     gameboard.masterTile1.hasMatchedColor=true;
+    colorGuess[i]=0;
     }
   }
 }
 
+
+if(!gameboard.masterTile2.hasMatchedPosition){
+  for (int i=0;i<4;i++){
+    if(colorGuess[i]==masterTile2.colorr){
+    colorCounter++;
+    gameboard.masterTile1.hasMatchedColor=true;
+    colorGuess[i]=0;
+    }
+  }
+}
+
+if(!gameboard.masterTile3.hasMatchedPosition){
+  for (int i=0;i<4;i++){
+    if(colorGuess[i]==masterTile3.colorr){
+    colorCounter++;
+    gameboard.masterTile1.hasMatchedColor=true;
+    colorGuess[i]=0;
+    }
+  }
+}
+
+if(!gameboard.masterTile4.hasMatchedPosition){
+  for (int i=0;i<4;i++){
+    if(colorGuess[i]==masterTile4.colorr){
+    colorCounter++;
+    gameboard.masterTile1.hasMatchedColor=true;
+    colorGuess[i]=0;
+    }
+  }
+}
 
 println("Color correct: " + colorCounter);
 println();
@@ -316,7 +351,7 @@ colorGuess[i]=0;
     masterTile3.display();
     masterTile4.display();
 
-    //rect(0,0,n,n);
+
   }
 
   void createUserTiles() {
@@ -357,17 +392,33 @@ rect(x,y,4*n,n);
 
 
 void congrats(){
-
+  
   fill(#387038);
 rect(0,0,N,N);
 
 println("CONGRATULATIONS YOU WON!!");
+gameWon=true;
 }
 
 void gameover(){
 
+col=0;
+colIndex=0;
+row=N-2*n;
+counter=0;
+countPosition=0;
+colorCounter=0;
+
+  
 fill(#960000);
 rect(0,0,N,N);
-
 println("GAME OVER");
+
+gameLost=true;
+
+}
+
+void setupp(){
+delay(2000);
+setup();
 }
